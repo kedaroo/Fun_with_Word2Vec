@@ -36,11 +36,12 @@ def closest(space, coord, n = 10):
         closest_values.append(space[key])
     return closest_names, closest_values
 
-def visualize_color_math(operation, *args):
+def visualize_color_math(operation, *args, rotate = True):
 
     # perform the operation
     if operation == 'sum':
-        result = np.sum(*args, axis = 0)
+        a = [*args]
+        result = np.sum(a, axis = 0)
     elif operation == 'subtract':
         result = np.subtract(*args)
     else:
@@ -73,9 +74,15 @@ def visualize_color_math(operation, *args):
     ax.set_xlabel('Red')
     ax.set_ylabel('Green')
     ax.set_zlabel('Blue')
-    plt.show()
+    if rotate:
+        for angle in range(0, 360):
+            ax.view_init(30, angle)
+            plt.draw()
+            plt.pause(.01)
+    else:
+        plt.show()
     return
 
-# visualize_color_math('mean', colors['yellow'], colors['pink'], colors['orange'], colors['sky'], colors['purple'])
-visualize_color_math('add', colors['orange'], colors['pink'])
+visualize_color_math('mean', colors['yellow'], colors['pink'], colors['orange'], colors['sky'], colors['purple'], rotate = True)
+# visualize_color_math('sum', colors['orange'], colors['pink'], colors['yellow'], rotate = False)
 # visualize_color_math('subtract', colors['olive'], colors['purple'])
