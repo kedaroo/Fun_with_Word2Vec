@@ -48,7 +48,7 @@ def visualize_color_math(operation, *args):
         result = np.mean(a, axis = 0)
 
     # find closest names and values of colors closest to the result
-    closest_names, closest_values = closest(colors, result, n = 5)
+    closest_names, closest_values = closest(colors, result, n = 3)
 
     # make list of hex values of closest colors to pass into scatter plot
     hex_colors = [item['hex'] for item in json_colors['colors'] if item['color'] in closest_names]
@@ -61,7 +61,7 @@ def visualize_color_math(operation, *args):
 
     # append rgb components and hex values of input colors to previous lists
     for color in args:
-        print(color)
+        # print(color)
         reds.append(color[0])
         greens.append(color[1])
         blues.append(color[2])
@@ -76,6 +76,6 @@ def visualize_color_math(operation, *args):
     plt.show()
     return
 
-# visualize_color_math('mean', colors['orange'], colors['blue'])
-# visualize_color_math('add', colors['green'], colors['pink'])
+visualize_color_math('mean', colors['yellow'], colors['pink'], colors['orange'], colors['sky'], colors['purple'])
+# visualize_color_math('add', colors['orange'], colors['pink'])
 # visualize_color_math('subtract', colors['olive'], colors['purple'])
