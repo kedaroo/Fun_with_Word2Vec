@@ -39,7 +39,7 @@ def closest(space, coord, n = 10):
 def visualize_color_math(operation, *args):
 
     # perform the operation
-    if operation == 'add':
+    if operation == 'sum':
         result = np.sum(*args, axis = 0)
     elif operation == 'subtract':
         result = np.subtract(*args)
@@ -77,5 +77,5 @@ def visualize_color_math(operation, *args):
     return
 
 # visualize_color_math('mean', colors['yellow'], colors['pink'], colors['orange'], colors['sky'], colors['purple'])
-# visualize_color_math('add', colors['orange'], colors['pink'])
+visualize_color_math('add', colors['orange'], colors['pink'])
 # visualize_color_math('subtract', colors['olive'], colors['purple'])
