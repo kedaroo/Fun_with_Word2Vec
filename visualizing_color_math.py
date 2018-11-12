@@ -10,14 +10,11 @@ def hex_to_rgb(hex):
     hex = hex.strip('#')
     r, g, b = int(hex[:2], 16), int(hex[2:4], 16), int(hex[4:6], 16)
     return r, g, b
-# print(hex_to_rgb('#ffffff'))
 
 def rgb_to_hex(color):
     r, g, b = color[0], color[1], color[2]
     hex = "#{:02x}{:02x}{:02x}".format(r, g, b)
     return hex
-# print(rgb_to_hex(255,255,255))
-
 
 colors = dict()
 for item in json_colors['colors']:
@@ -70,8 +67,6 @@ def visualize_color_math(operation, *args):
         blues.append(color[2])
         hex_colors.append(rgb_to_hex(color))
 
-    # print(f'Reds: {reds} \nGreens: {greens} \nBlues: {blues} \nHex colors: {hex_colors}')
-    
     fig = plt.figure()
     ax = fig.add_subplot(111, projection = '3d')
     ax.scatter(reds, greens, blues, c = hex_colors, alpha = 1, s = 200)
@@ -81,6 +76,6 @@ def visualize_color_math(operation, *args):
     plt.show()
     return
 
-visualize_color_math('mean', colors['orange'], colors['blue'])
+# visualize_color_math('mean', colors['orange'], colors['blue'])
 # visualize_color_math('add', colors['green'], colors['pink'])
 # visualize_color_math('subtract', colors['olive'], colors['purple'])
