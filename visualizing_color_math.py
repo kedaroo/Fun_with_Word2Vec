@@ -16,6 +16,7 @@ def rgb_to_hex(color):
     hex = '#{:02x}{:02x}{:02x}'.format(r, g, b)
     return hex
 
+# make colors dictionary
 colors = dict()
 for item in json_colors['colors']:
     colors[item['color']] = hex_to_rgb(item['hex'])
@@ -32,11 +33,10 @@ def closest(space, coord, n = 10):
     closest_names = list()
     closest_values = list()
     for key in sorted(space.keys(), key = lambda x: distance(coord, space[x]))[:n]:
-        closest_names.append(key)
         closest_values.append(space[key])
-    return closest_names, closest_values
+    return closest_values
 
-def visualize_color_math(operation, *args, rotate = True, actual = True):
+def visualize_color_math(operation, *args, rotate = False, actual = True):
 
     # perform the operation
     if operation == 'sum':
@@ -48,11 +48,9 @@ def visualize_color_math(operation, *args, rotate = True, actual = True):
         a = [*args]
         result = np.mean(a, axis = 0)
 
-    for color in args:
-        print(color)
-
-    print(f'Result: {result}')
-    print(f'Result type: {type(result)}')
+    # remove floating points from the result elements
+    revised_result = [int(x) for x in result]
+    result = revised_result
 
     reds = list()
     greens = list()
@@ -61,17 +59,12 @@ def visualize_color_math(operation, *args, rotate = True, actual = True):
 
     # append rgb components and hex values of input colors to rgb lists
     for color in args:
-        # print(color)
         reds.append(color[0])
         greens.append(color[1])
         blues.append(color[2])
         hex_colors.append(rgb_to_hex(color))
 
     if actual:
-
-        result = [int(x) if x >= 0 else x*0 for x in result]
-        print(f'Result: {result}')
-        print(f'Result type: {type(result)}')
 
         # append rgb components and hex values of output colors to rgb lists
         reds.append(result[0])
@@ -82,8 +75,8 @@ def visualize_color_math(operation, *args, rotate = True, actual = True):
     else:
 
         # find closest names and values of colors closest to the result
-        closest_names, closest_values = closest(colors, result, n = 3)
-        print({k:v for k,v in zip(closest_names, closest_values)})
+        closest_values = closest(colors, result, n = 3)
+
         # dissect rgb components of closest color values
         for color in closest_values:
             reds.append(color[0])
@@ -93,7 +86,7 @@ def visualize_color_math(operation, *args, rotate = True, actual = True):
 
     fig = plt.figure()
     ax = fig.add_subplot(111, projection = '3d')
-    ax.scatter(reds, greens, blues, c = hex_colors, alpha = 1, s = 200)
+    ax.scatter(reds, greens, blues, c = hex_colors, alpha = 1, s = 1000)
     ax.set_xlabel('Red')
     ax.set_ylabel('Green')
     ax.set_zlabel('Blue')
@@ -108,6 +101,6 @@ def visualize_color_math(operation, *args, rotate = True, actual = True):
 
     return
 
-# visualize_color_math('mean', colors['black'], colors['white'], rotate = False, actual = True)
-# visualize_color_math('sum', colors['orange'], colors['pink'], colors['yellow'], rotate = False)
-# visualize_color_math('subtract', colors['olive'], colors['ochre'], rotate = False, actual = False)
+# visualize_color_math('sum', colors['red'], colors['blue'], colors['green'], rotate = False, actual = True)
+visualize_color_math('mean', colors['yellow'], colors['pink'], colors['red'], colors['green'], rotate = False, actual = False)
+# visualize_color_math('subtract', (1.2, 255, 56), colors['ochre'], rotate = False, actual = False)
