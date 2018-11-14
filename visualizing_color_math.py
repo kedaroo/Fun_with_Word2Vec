@@ -63,13 +63,11 @@ def visualize_color_math(operation, *args, rotate = True, actual = True):
 
     if actual:
 
-        result = [int(x) for x in result]
-
         # append rgb components and hex values of output colors to rgb lists
         reds.append(result[0])
         greens.append(result[1])
         blues.append(result[2])
-        hex_colors.append(rgb_to_hex(result))
+        hex_colors.append(rgb_to_hex([int(x) for x in result]))
 
     else:
 
