@@ -4,14 +4,18 @@ from mpl_toolkits import mplot3d
 import numpy as np
 import math
 
+#load xkcd colors data
 json_colors = json.loads(open('xkcd.json').read())
 
 def hex_to_rgb(hex):
+    '''converts hexadecimal color value to its rgb counterpart'''
     hex = hex.strip('#')
     r, g, b = int(hex[:2], 16), int(hex[2:4], 16), int(hex[4:6], 16)
     return r, g, b
 
 def rgb_to_hex(color):
+    '''converts rgb color to its hexadecimal counterpart
+       takes in a tuple or a list'''
     r, g, b = color[0], color[1], color[2]
     hex = '#{:02x}{:02x}{:02x}'.format(r, g, b)
     return hex
@@ -22,6 +26,7 @@ for item in json_colors['colors']:
     colors[item['color']] = hex_to_rgb(item['hex'])
 
 def distance(coord1, coord2):
+    '''calculates Euclidean distance between two vectors'''
     dist = math.sqrt(sum([(i - j)**2 for i, j in zip(coord1, coord2)]))
     return dist
 
@@ -30,7 +35,6 @@ def closest(space, coord, n = 10):
        space is a dictionary/ associative array
        coord is given vector
        n is the max number of closest vectors'''
-    closest_names = list()
     closest_values = list()
     for key in sorted(space.keys(), key = lambda x: distance(coord, space[x]))[:n]:
         closest_values.append(space[key])
@@ -66,7 +70,7 @@ def visualize_color_math(operation, *args, rotate = False, actual = True):
 
     if actual:
 
-        # append rgb components and hex values of output colors to rgb lists
+        # append rgb components and hex values of output color to rgb lists
         reds.append(result[0])
         greens.append(result[1])
         blues.append(result[2])
@@ -102,5 +106,5 @@ def visualize_color_math(operation, *args, rotate = False, actual = True):
     return
 
 # visualize_color_math('sum', colors['red'], colors['blue'], colors['green'], rotate = False, actual = True)
-visualize_color_math('mean', colors['yellow'], colors['pink'], colors['red'], colors['green'], rotate = False, actual = False)
+# visualize_color_math('mean', colors['yellow'], colors['pink'], colors['red'], colors['green'], rotate = False, actual = False)
 # visualize_color_math('subtract', (1.2, 255, 56), colors['ochre'], rotate = False, actual = False)
