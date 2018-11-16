@@ -75,11 +75,13 @@ def visualize_color_math(operation, *args, rotate = False, actual = True):
         greens.append(result[1])
         blues.append(result[2])
         hex_colors.append(rgb_to_hex(result))
+        print(f'Resultant color: {result}')
 
     else:
 
         # find closest names and values of colors closest to the result
         closest_values = closest(colors, result, n = 3)
+        print(f'Nearest colors to resultant color: {closest_values}')
 
         # dissect rgb components of closest color values
         for color in closest_values:
