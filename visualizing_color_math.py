@@ -106,7 +106,3 @@ def visualize_color_math(operation, *args, rotate = False, actual = True):
         plt.show()
 
     return
-
-# visualize_color_math('sum', colors['red'], colors['blue'], colors['green'], rotate = False, actual = True)
-# visualize_color_math('mean', colors['yellow'], colors['pink'], colors['red'], colors['green'], rotate = False, actual = False)
-# visualize_color_math('subtract', (1.2, 255, 56), colors['ochre'], rotate = False, actual = False)
