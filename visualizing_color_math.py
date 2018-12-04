@@ -40,7 +40,7 @@ def closest(space, coord, n = 10):
         closest_values.append(space[key])
     return closest_values
 
-def visualize_color_math(operation, *args, rotate = False, actual = True):
+def visualize_color_math(operation, *args, rotate = False):
 
     # perform the operation
     if operation == 'sum':
@@ -68,27 +68,15 @@ def visualize_color_math(operation, *args, rotate = False, actual = True):
         blues.append(color[2])
         hex_colors.append(rgb_to_hex(color))
 
-    if actual:
+    # find closest names and values of colors closest to the result
+    closest_values = closest(colors, result, n = 3)
 
-        # append rgb components and hex values of output color to rgb lists
-        reds.append(result[0])
-        greens.append(result[1])
-        blues.append(result[2])
-        hex_colors.append(rgb_to_hex(result))
-        print(f'Resultant color: {result}')
-
-    else:
-
-        # find closest names and values of colors closest to the result
-        closest_values = closest(colors, result, n = 3)
-        print(f'Nearest colors to resultant color: {closest_values}')
-
-        # dissect rgb components of closest color values
-        for color in closest_values:
-            reds.append(color[0])
-            greens.append(color[1])
-            blues.append(color[2])
-            hex_colors.append(rgb_to_hex(color))
+    # dissect rgb components of closest color values
+    for color in closest_values:
+        reds.append(color[0])
+        greens.append(color[1])
+        blues.append(color[2])
+        hex_colors.append(rgb_to_hex(color))
 
     fig = plt.figure()
     ax = fig.add_subplot(111, projection = '3d')
